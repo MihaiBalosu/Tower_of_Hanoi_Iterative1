@@ -33,3 +33,20 @@ int isEmpty(struct Stack* stack)
 {
 return (stack->top == -1);
 }
+
+int main()
+{
+	// Input: number of slices
+	int num_of_slices;
+
+    time_t t;
+
+    srand((unsigned) time(&t));
+
+    num_of_slices = rand() %10;
+
+    printf("The number of disks is %d \n", num_of_slices);
+
+	return 0;
+}
+
