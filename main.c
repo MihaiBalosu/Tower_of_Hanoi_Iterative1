@@ -55,6 +55,47 @@ int pop(struct Stack* stack)
 void moveSlicesBetweenTwoPlates(struct Stack *src,
 			struct Stack *dest, char s, char d)
 
+    int plate1TopSlice = pop(src);
+	int plate2TopSlice = pop(dest);
+
+	// When pole 1 is empty
+	if (plate1TopSlice == INT_MIN)
+	{
+		push(src, plate2TopSlice);
+		moveSlice(d, s, plate2TopSlice);
+	}
+
+	// When plate1 plate is empty
+	else if (plate2TopSlice == INT_MIN)
+	{
+		push(dest, plate1TopSlice);
+		moveSlice(s, d, plate1TopSlice);
+	}
+
+	// When top slice of plate1 > top slice of plate
+	else if (plate1TopSlice > plate2TopSlice)
+	{
+		push(src, plate1TopSlice);
+		push(src, plate2TopSlice);
+		moveSlice(d, s, plate2TopSlice);
+	}
+
+	// When top slice of plate1 < top slice of plate2
+	else
+	{
+		push(dest, plate2TopSlice);
+		push(dest, plate1TopSlice);
+		moveSlice(s, d, plate1TopSlice);
+	}
+}
+
+//Function to show the movement of slices
+void moveSlice(char fromPlate, char toPlate, int slice)
+{
+	printf("Move the slice %d from plate \'%c\' to plate \'%c\'\n",
+		slice, fromPlate, toPlate);
+}
+
 int main()
 {
 	// Input: number of slices
