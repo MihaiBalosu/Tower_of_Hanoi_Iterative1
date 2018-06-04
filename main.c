@@ -144,9 +144,12 @@ int main()
 
     srand((unsigned) time(&t));
 
-    num_of_slices = rand() %10;
+    num_of_slices =rand() %20;
 
-    printf("The number of slices is %d \n", num_of_slices);
+    printf( "A is the bronze plate \n" );
+    printf( "B is the silver plate \n" );
+    printf( "C is the golden plate \n" );
+    printf( "The number of slices is %d \n", num_of_slices );
 
 	struct Stack *src, *dest, *aux;
 
