@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <limits.h>
 
 // A structure to represent a stack
 struct Stack
@@ -34,6 +35,8 @@ int isEmpty(struct Stack* stack)
 return (stack->top == -1);
 }
 
+// Function to add an item to stack. It increases
+// top by 1
 void push(struct Stack *stack, int item)
 {
 	if (isFull(stack))
@@ -54,25 +57,25 @@ int pop(struct Stack* stack)
 // two plates
 void moveSlicesBetweenTwoPlates(struct Stack *src,
 			struct Stack *dest, char s, char d)
-
-    int plate1TopSlice = pop(src);
+{
+	int plate1TopSlice = pop(src);
 	int plate2TopSlice = pop(dest);
 
-	// When pole 1 is empty
+	// When plate 1 is empty
 	if (plate1TopSlice == INT_MIN)
 	{
 		push(src, plate2TopSlice);
 		moveSlice(d, s, plate2TopSlice);
 	}
 
-	// When plate1 plate is empty
+	// When plate 2 is empty
 	else if (plate2TopSlice == INT_MIN)
 	{
 		push(dest, plate1TopSlice);
 		moveSlice(s, d, plate1TopSlice);
 	}
 
-	// When top slice of plate1 > top slice of plate
+	// When top slice of plate1 > top slice of plate2
 	else if (plate1TopSlice > plate2TopSlice)
 	{
 		push(src, plate1TopSlice);
@@ -95,6 +98,7 @@ void moveSlice(char fromPlate, char toPlate, int slice)
 	printf("Move the slice %d from plate \'%c\' to plate \'%c\'\n",
 		slice, fromPlate, toPlate);
 }
+
 //Function to implement TOH puzzle
 void tohIterative(int num_of_slices, struct Stack
 			*src, struct Stack *aux,
@@ -130,6 +134,7 @@ void tohIterative(int num_of_slices, struct Stack
 	}
 }
 
+// Driver Program
 int main()
 {
 	// Input: number of slices
@@ -141,8 +146,16 @@ int main()
 
     num_of_slices = rand() %10;
 
-    printf("The number of disks is %d \n", num_of_slices);
+    printf("The number of slices is %d \n", num_of_slices);
 
+	struct Stack *src, *dest, *aux;
+
+	// Create three stacks of size 'num_of_slices'
+	// to hold the slices
+	src = createStack(num_of_slices);
+	aux = createStack(num_of_slices);
+	dest = createStack(num_of_slices);
+
+	tohIterative(num_of_slices, src, aux, dest);
 	return 0;
 }
-
